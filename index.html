@@ -305,6 +305,7 @@
 
     <footer>
         <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+        <p id="counter" style="margin-top: 5px; font-size: 0.9rem; color: #bdc3c7;"></p>
     </footer>
 
     <script>
@@ -351,6 +352,28 @@
                     }
                 });
             });
+
+            // --- ここからアクセスカウンターの処理 ---
+            // ブラウザの記憶領域から訪問回数を取得（無ければ0）
+            let visitCount = localStorage.getItem('portfolio_visits');
+            visitCount = visitCount ? parseInt(visitCount) + 1 : 1;
+            
+            // 新しい訪問回数を記憶
+            localStorage.setItem('portfolio_visits', visitCount);
+
+            // キリのいい数字（キリ番）の判定
+            // ※ここでは 10の倍数（10, 20, 30...）または「7」のときにおめでとうを表示します
+            let luckyMessage = '';
+            if (visitCount % 10 === 0 || visitCount === 7) {
+                luckyMessage = ' 🎉 おめでとう！キリ番達成！';
+            }
+
+            // 画面に表示
+            const counterElement = document.getElementById('counter');
+            if (counterElement) {
+                counterElement.textContent = `アクセス数（あなたの訪問回数）: ${visitCount}回${luckyMessage}`;
+            }
+            // --- ここまで ---
         });
     </script>
 </body>
